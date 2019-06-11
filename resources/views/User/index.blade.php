@@ -3,6 +3,16 @@
 
 @section('content')
 
+@if (session('status'))
+<div class="row justify-content-left" id="alert">
+        <div class="col">
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Sukses !</h4>
+            <p>{{session('status')}}</p>
+            </div>
+        </div>
+    </div>
+@endif
 <div class="row justify-content-center">
 
         <div class="col-lg-10">
@@ -36,14 +46,23 @@
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->gender}}</td>
                                 <td>{{$user->role}}</td>
-                            <td><img width="75px" src="{{asset('storage/'.$user->avatar)}}" alt=""></td>
-                                <td class="text-center" ><a href="{{route('user.edit',['id'=>$user->id])}}" class="btn btn-secondary btn-sm"><i class="fa fa-edit"></i></a>
-                                <form method="POST" action="{{route('user.destroy',['id'=>$user->id])}}" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button  class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
-                                </form>
-                                </td>
+                                <td><img width="75px" src="{{asset('storage/'.$user->avatar)}}" alt=""></td>
+                                @if ($user->role == 'user')
+                                    <td class="text-center" ><a href="{{route('user.edit',['id'=>$user->id])}}" class="btn btn-secondary btn-sm"><i class="fa fa-edit"></i></a>
+
+                                        <form method="POST" action="{{route('user.destroy',['id'=>$user->id])}}" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button  class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                                    </form>
+                                    </td>
+                                    @elseif($user->id == Auth::id())
+                                    <td class="text-center" ><a href="{{route('user.edit',['id'=>$user->id])}}" class="btn btn-secondary btn-sm"><i class="fa fa-edit"></i></a>
+                                    </td>
+                                @else
+                                <td class="text-danger">No action</td>
+                                    @endif
+
                             </tr>
                             @endforeach
 
@@ -77,6 +96,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
       $('#bootstrap-data-table-export').DataTable();
+      $('#alert').fadeOut(3000);
   } );
 </script>
 @endpush

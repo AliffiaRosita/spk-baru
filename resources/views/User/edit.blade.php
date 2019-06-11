@@ -39,7 +39,7 @@
 
                         <div class="row form-group">
                             <div class="col col-md-3"><label for="pass" class=" form-control-label">Password <div class="text-danger d-inline">*</div></label></div>
-                            <div class="col-12 col-md-9"><input type="password" id="pass" required="required" name="password" placeholder="Password..." value="" class="form-control {{$errors->first('password') ? "is-invalid": ""}}">
+                            <div class="col-12 col-md-9"><input type="password" id="pass"  name="password" placeholder="Password..." value="" class="form-control {{$errors->first('password') ? "is-invalid": ""}}">
                                 <div class="invalid-feedback">
                                     {{$errors->first('password')}}
                                 </div>

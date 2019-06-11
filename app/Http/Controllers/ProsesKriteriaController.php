@@ -7,6 +7,7 @@ use App\Criteria;
 use App\CriteriaProcess;
 use App\PriorityVectorCriteria;
 use App\RandomIndex;
+use Illuminate\Support\Facades\Auth;
 
 class ProsesKriteriaController extends Controller
 {
@@ -15,7 +16,7 @@ class ProsesKriteriaController extends Controller
         $kriterias = Criteria::all();
         $count_kriteria = Criteria::count();
         $index = 0;
-        $old_value = CriteriaProcess::where('id_user','1')->get();
+        $old_value = CriteriaProcess::where('id_user',Auth::id())->get();
         return view('perbandingan.form-perbandingan', ['kriterias'=>$kriterias,'count_kriteria'=>$count_kriteria,'index'=>$index,'old_value'=>$old_value]);
     }
 
@@ -45,7 +46,7 @@ class ProsesKriteriaController extends Controller
                     [
                     'id_criteria1'=> $kriteria[$i]->id,
                     'id_criteria2'=> $kriteria[$j]->id,
-                    'id_user'=> 1,
+                    'id_user'=> Auth::id(),
                     ],
                     [
                         'hasil'=> $matriks[$i][$j],
@@ -81,7 +82,7 @@ class ProsesKriteriaController extends Controller
             }
             $priority_vector[$i]= $jml_kolom[$i]/$count_kriteria;
             PriorityVectorCriteria::updateOrCreate([
-                'user_id'=> 1,
+                'user_id'=> Auth::id(),
                 'kriteria_id'=> $kriteria[$i]->id,
 
             ],[

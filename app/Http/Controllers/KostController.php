@@ -46,7 +46,7 @@ class KostController extends Controller
         $request->validate([
             'nama_kost' => 'required|max:50',
             'alamat'=>'required',
-            'no_tlp'=>'min:12|numeric',
+            'no_tlp'=>'max:12',
             'harga'=>'required|integer|not_in:0',
             'jenis_kost'=>'required',
             'kost_pict'=> 'image|mimes:jpeg,png,jpg,gif,svg|max:2000'
@@ -61,7 +61,7 @@ class KostController extends Controller
            'kost_pict'=> $file
         ]);
         AlternatifProcess::truncate();
-        return redirect()->route('kost.index');
+        return redirect()->route('kost.index')->with('status','Berhasil Tambah Kost');
 
     }
 
@@ -103,7 +103,7 @@ class KostController extends Controller
         $request->validate([
             'nama_kost' => 'required|max:50',
             'alamat'=>'required',
-            'no_tlp'=>'max:13',
+            'no_tlp'=>'max:12',
             'harga'=>'required|integer|min:0',
             'jenis_kost'=>'required',
             'kost_pict'=> 'image|mimes:jpeg,png,jpg,gif,svg|max:2000'
@@ -129,7 +129,7 @@ class KostController extends Controller
            'jenis_kost'=>$request->jenis_kost,
            'kost_pict'=> $file
         ]);
-        return redirect()->route('kost.index',['kosts'=> $kost]);
+        return redirect()->route('kost.index',['kosts'=> $kost])->with('status','Berhasil Update Kost');
     }
 
     /**
@@ -143,6 +143,6 @@ class KostController extends Controller
         $kost = Kost::findOrFail($id);
         $kost->delete();
         AlternatifProcess::truncate();
-        return redirect()->route('kost.index');
+        return redirect()->route('kost.index')->with('status','Berhasil Hapus Kost');
     }
 }

@@ -109,15 +109,18 @@ class UserController extends Controller
         $request->validate([
             'name'=> 'required',
             'email'=> 'required|email',
-            'password' => 'required|min:6',
             'gender' =>'required',
             'avatar'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2000'
 
         ]);
+        if($request->password){
+            $users->update([
+                'password'=>Hash::make($request->password),
+            ]);
+        }
         $users->update([
             'name' => $request->name,
             'email' =>$request->email,
-            'password'=> Hash::make($request->password),
             'gender' => $request->gender,
             'role'=>'user',
             'avatar' => $file

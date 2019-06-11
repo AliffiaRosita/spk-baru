@@ -10,6 +10,7 @@ use App\RandomIndex;
 use App\PriorityVectorAlternatif;
 use App\PriorityVectorCriteria;
 use App\RankingKost;
+use Illuminate\Support\Facades\Auth;
 
 class ProsesAlternatifUserController extends Controller
 {
@@ -19,7 +20,7 @@ class ProsesAlternatifUserController extends Controller
         $count_kost = Kost::count();
         $kost = Kost::all();
         $index = 0;
-        $old_value = AlternatifProcess::where('id_user','3')->where('id_criteria',$kriterias->id)->get();
+        $old_value = AlternatifProcess::where('id_user',Auth::id())->where('id_criteria',$kriterias->id)->get();
 
         return view('perbandingan-user.form-perbandinganAlternatif', ['kriterias'=>$kriterias,'count_kost'=>$count_kost,'index'=>$index,'old_value'=>$old_value,'kost'=>$kost,'jenis'=>$jenis]);
     }
@@ -49,7 +50,7 @@ class ProsesAlternatifUserController extends Controller
                     [
                     'id_kost1'=> $kost[$i]->id,
                     'id_kost2'=> $kost[$j]->id,
-                    'id_user'=>3,
+                    'id_user'=>Auth::id(),
                     'id_criteria'=>$kriterias->id,
                     ],
                     [
@@ -86,7 +87,7 @@ class ProsesAlternatifUserController extends Controller
             }
             $priority_vector[$i]= $jml_kolom[$i]/$count_kost;
             PriorityVectorAlternatif::updateOrCreate([
-                'user_id'=> 3,
+                'user_id'=> Auth::id(),
                 'kost_id'=> $kost[$i]->id,
                 'kriteria_id'=>$kriterias->id,
 
@@ -156,7 +157,7 @@ class ProsesAlternatifUserController extends Controller
         $composite_weight[$i]= $jumlah;
         RankingKost::updateOrCreate(
             [
-                'id_user'=>3,
+                'id_user'=>Auth::id(),
                 'id_kost'=>$kost[$i]->id,
             ],
             [

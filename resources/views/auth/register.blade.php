@@ -45,6 +45,14 @@
                 <div class="form-group">
                     <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Nama" style="font-size:13px;">
                 </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="pria" value="Pria" name="gender" class="custom-control-input">
+                    <label class="custom-control-label" for="pria">Pria</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="Wanita" name="gender" value="Wanita" class="custom-control-input">
+                    <label class="custom-control-label" for="Wanita">Wanita</label>
+                  </div>
                 <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Sign Up</button></div><a href="{{url('login')}}" class="already" style="font-size:11px;padding-top:3px;height:20;">Sudah punya akun ? Sign In Disini</a></form>
         </div>
     </div>

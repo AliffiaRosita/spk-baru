@@ -8,6 +8,14 @@
 <div class="top-right">
     <div class="header-menu">
         <div class="header-left">
-             <a class="nav-link text-danger" href="#"><i class="fa fa-power-off"></i> Logout</a>
+                <div class="user-area dropdown float-right">
+                        <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                      document.getElementById('logout-form').submit();" class="nav-link text-danger" data-toggle="tooltip" title="Logout"><i class="fa fa-power-off"></i> Logout</a>
+                            </div>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+
     </div>
 </div>

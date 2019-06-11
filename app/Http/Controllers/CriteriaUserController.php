@@ -8,17 +8,21 @@ use App\Kost;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Auth;
 
 class CriteriaUserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $kriteria = Criteria::count();
         $kost = Kost::count();
-        $kosts = Kost::all();
-        $user = User::where('id',1)->first();
+        $user = User::where('id',Auth::id())->first();
         $isi_kriteria = Criteria::all();
+        if($request->nama_kost == null){
+            $kosts = Kost::all();
+        }else{
+            $kosts = Kost::where('nama_kost','LIKE',"%$request->nama_kost%")->get();
+        }
         return view('dashboarduser',compact('kriteria','kost','kosts','isi_kriteria','user'));
     }
 
@@ -44,19 +48,23 @@ class CriteriaUserController extends Controller
         $request->validate([
             'name'=> 'required',
             'email'=> 'required|email',
-            'password' => 'required|min:6',
             'gender' =>'required',
             'avatar'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2000'
 
         ]);
+
+        if ($request->password) {
+            $users->update([
+                'password'=> Hash::make($request->password),
+            ]);
+        }
         $users->update([
             'name' => $request->name,
             'email' =>$request->email,
-            'password'=> Hash::make($request->password),
             'gender' => $request->gender,
             'role'=>'user',
             'avatar' => $file
         ]);
-        return redirect()->route('dashboarduser')->with('status','User Berhasil diubah');
+        return redirect()->route('edit.user.user',['id'=>$users->id])->with('status','User Berhasil diubah');
     }
 }

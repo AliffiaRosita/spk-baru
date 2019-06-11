@@ -2,6 +2,16 @@
 @section('contentheaderuser')
 
 <div class="container">
+        @if (session('status'))
+        <div class="row justify-content-left" id="alert">
+                <div class="col">
+                    <div class="alert alert-success" role="alert">
+                        <h4 class="alert-heading">Sukses !</h4>
+                    <p>{{session('status')}}</p>
+                    </div>
+                </div>
+            </div>
+        @endif
     <div class="row">
         <div class="col-4">
                 <div class="card" style="position:fixed">
@@ -130,6 +140,9 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+        $(function () {
+            $('#alert').fadeOut(3000);
+        })
         </script>
 @endpush
 

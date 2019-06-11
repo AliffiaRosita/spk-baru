@@ -67,7 +67,7 @@
 
             <div class="row form-group">
                 <div class="col col-md-3"><label for="nilai" class=" form-control-label">Nilai <div class="text-danger d-inline">*</div></label></div>
-                <div class="col-12 col-md-9"><input type="float" id="nilai" name="nilai[{{$index}}]" value="{{!$first ? $value>=1?$value:round(1/$value):''}}" placeholder="1 - 9" class="form-control" required max=9>
+                <div class="col-12 col-md-9"><input type="number" id="nilai" name="nilai[{{$index}}]" value="{{!$first ? $value>=1?$value:round(1/$value):''}}" placeholder="1 - 9" class="form-control" required max=9>
                 </div>
             </div>
 

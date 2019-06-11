@@ -3,7 +3,16 @@
 
 @section('content')
 
-
+@if (session('status'))
+<div class="row justify-content-left" id="alert">
+        <div class="col">
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Sukses !</h4>
+            <p>{{session('status')}}</p>
+            </div>
+        </div>
+    </div>
+@endif
 
 <div class="row justify-content-center">
 
@@ -70,7 +79,10 @@
 <script type="text/javascript">
     $(document).ready(function() {
       $('#bootstrap-data-table-export').DataTable();
-  } );
+
+    $('#alert').fadeOut(3000);
+  });
 </script>
+
     @endpush
 

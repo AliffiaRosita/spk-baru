@@ -3,7 +3,7 @@
 
             <!-- login user -->
 
-            <div class="collapse navbar-collapse" 
+            <div class="collapse navbar-collapse"
                 id="navcol-1">
                 <ul class="nav navbar-nav mx-auto">
                     <li class="nav-item" role="presentation"><a class="nav-link active" href="#" style="width:90px;">&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
@@ -16,13 +16,34 @@
                    <li>
                         <a href="{{url('team')}}" class="btn btn-info btn-sm" data-toggle="tooltip" title="Team" style="     margin-right: 20px"><i class="fa fa-users"></i></a>
                    </li>
+                   @auth
+
+                   @if (Auth::user()->role =='user')
                    <li>
                         <a href="{{route('dashboarduser')}}" class="btn btn-info btn-sm" data-toggle="tooltip" title="Dashboard User" style="     margin-right: 20px"><i class="fa fa-user"></i></a>
                    </li>
+                   @else
                    <li>
-                        <a href="{{url('logout')}}" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Logout" style="padding-left: 10;"><i class="fa fa-close"></i></a>
+                        <a href="{{route('dashboard')}}" class="btn btn-info btn-sm" data-toggle="tooltip" title="Dashboard Admin" style="     margin-right: 20px"><i class="fa fa-user"></i></a>
                    </li>
-                    
+                   @endif
+                   @endauth
+
+                   @guest
+                   <div class="user-area dropdown float-right">
+                           <a href="{{route('login')}}" class="btn btn-success btn-sm" data-toggle="tooltip" title="Login"><i class="fa fa-sign-in"></i></a>
+                       </div>
+                   @else
+                   <div class="user-area dropdown float-right">
+                        <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                      document.getElementById('logout-form').submit();" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Logout"><i class="fa fa-close"></i></a>
+                            </div>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                   @endguest
+
                 </ul>
             </div>
 
@@ -31,7 +52,7 @@
 
              <!-- login admin -->
 
-            <!-- <div class="collapse navbar-collapse" 
+            <!-- <div class="collapse navbar-collapse"
                 id="navcol-1">
                 <ul class="nav navbar-nav mx-auto">
                     <li class="nav-item" role="presentation"><a class="nav-link active" href="#" style="width:90px;">&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
@@ -50,14 +71,14 @@
                    <li>
                         <a href="{{url('logout')}}" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Logout" style="padding-left: 10;"><i class="fa fa-close"></i></a>
                    </li>
-                    
+
                 </ul>
             </div>
  -->
 
  <!-- guest -->
 
-            <!-- <div class="collapse navbar-collapse" 
+            <!-- <div class="collapse navbar-collapse"
                 id="navcol-1">
                 <ul class="nav navbar-nav mx-auto">
                     <li class="nav-item" role="presentation"><a class="nav-link active" href="#" style="width:90px;">&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
@@ -76,7 +97,7 @@
                    <li>
                         <a href="{{url('login')}}" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Logout" style="padding-left: 10;"><i class="fa fa-close"></i></a>
                    </li>
-                    
+
                 </ul>
             </div>
  -->
@@ -85,4 +106,3 @@
 
         </div>
     </nav>
-    

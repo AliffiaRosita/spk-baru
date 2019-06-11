@@ -104,7 +104,7 @@ class CriteriaController extends Controller
         $kriteria = Criteria::findOrFail($id);
         $kriteria->delete();
         CriteriaProcess::truncate();
-        return redirect()->route('criteria.index');
+        return redirect()->route('criteria.index')->with('status','Berhasil Mengahapus Kriteria');
     }
 
     //sementara ku giniiin karna beluma ada lgoin

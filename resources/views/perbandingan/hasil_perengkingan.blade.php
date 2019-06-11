@@ -111,5 +111,10 @@
       $('[data-toggle="tooltip"]').tooltip();
     } );
   </script>
+   <script>
+        $(function(){
+            swal("Kami Merekomendasikan {{$rankings[0]->kosts->nama_kost}} !", "{{$rankings[0]->kosts->nama_kost}} adalah kost terbaik berdasarkan kriteria yang telah anda isi. klik ok untuk melihat detail perhitungan", "success");
+        });
+    </script>
 @endpush
 
